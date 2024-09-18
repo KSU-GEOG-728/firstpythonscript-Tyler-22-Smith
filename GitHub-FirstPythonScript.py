@@ -39,6 +39,7 @@ clipped_rivers = arcpy.analysis.Clip('ks_major_rivers', buffer_ecoregion, 'clipp
 # Extracting Answer
 river_array = arcpy.da.TableToNumPyArray(clipped_rivers, ["Shape_Length"])
 answer = str(round(river_array["Shape_Length"].sum(), ndigits = 0))
+answer_miles = str(round(0.000621371 * river_array["Shape_Length"].sum(), ndigits = 0))
 
 # Print Statements for terminal
 print(" ")
@@ -53,10 +54,14 @@ print("............Clipping Rivers")
 print(" ")
 print(" ")
 print("########################################################")
+print("Total Length of Rivers in the {0} = {1} m".format(ecoregion, answer))
 print(" ")
-print("Total Length of Rivers in the {0} = {1} ft".format(ecoregion, answer))
-print(" ")
+print("or")
+print("")
+print(answer_miles + " miles")
 print("########################################################")
 
 # Final Output when using "Flint Hills": 
-# Total Length of Rivers in the Flint Hills = 812213.0 ft
+# Total Length of Rivers in the Flint Hills = 812213.0 m
+# or 
+# 505 miles
